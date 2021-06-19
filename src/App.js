@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from "react";
+import Header from "./components/Header";
+import UserList from "./components/UserList";
+import { themeContext } from "./contexts/ThemeContext";
+import AddUser from "./components/AddUser";
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <themeContext.Consumer>
+      {(contextTheme) => {
+          const {isDark, dark, light} = contextTheme;
+          let theme = isDark ? dark : light;
+        return (
+          <div className="py-5" style= {{background: theme.bg, minHeight:"100vh"}}>
+            <div className="container" style={{ maxWidth: "600px"}}>
+              <Header />
+              <AddUser />
+              <UserList />
+            </div>
+          </div>
+        );
+      }}
+    </themeContext.Consumer>
   );
 }
-
-export default App;
